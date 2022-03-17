@@ -8,6 +8,7 @@ const scorePlayer0 = document.querySelector("#score--0");
 const scorePlayer1 = document.querySelector("#score--1");
 const player0 = document.querySelector(".player--0");
 const player1 = document.querySelector(".player--1");
+const activePlayer = document.querySelector(`.player--${active}`);
 
 let score, active, accumulativeScore;
 
@@ -33,6 +34,10 @@ const activePlayer = function () {
   player1.classList.toggle("player--active");
 };
 
+const currentScore = function () {
+  document.querySelector(`#current--${active}`).textContent = score;
+};
+
 btnRollDice.addEventListener("click", function () {
   // roll the dice and display de roll
   const randomNumber = Math.trunc(Math.random() * 6) + 1;
@@ -42,10 +47,10 @@ btnRollDice.addEventListener("click", function () {
   //add dice number tu current score
   if (randomNumber !== 1) {
     score += randomNumber;
-    document.querySelector(`#current--${active}`).textContent = score;
+    currentScore();
   } else {
     score = 0;
-    document.querySelector(`#current--${active}`).textContent = score;
+    currentScore();
     activePlayer();
   }
 });
@@ -55,16 +60,12 @@ btnHold.addEventListener("click", function () {
   score = 0;
   document.querySelector(`#score--${active}`).textContent =
     accumulativeScore[active];
-  document.querySelector(`#current--${active}`).textContent = score;
+  currentScore();
 
   if (accumulativeScore[active] >= 20) {
     document.querySelector(`#score--${active}`).textContent = "You won!!!!!!";
-    document
-      .querySelector(`.player--${active}`)
-      .classList.add("player--winner");
-    document
-      .querySelector(`.player--${active}`)
-      .classList.remove("player--active");
+    activePlayer.classList.add("player--winner");
+    activePlayer.classList.remove("player--active");
     btnHold.disabled = true;
     btnRollDice.disabled = true;
   } else {
