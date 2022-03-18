@@ -1,5 +1,4 @@
 # Pig-Game
-WORK IN PROGRESS
 
 Pig game based on project from Jonas Schmedtmann's javascript course
 
